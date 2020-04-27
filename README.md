@@ -6,8 +6,9 @@
 - [Go 微服务网关代码使用说明](#go-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E4%BB%A3%E7%A0%81%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
   - [代码帮助](#%E4%BB%A3%E7%A0%81%E5%B8%AE%E5%8A%A9)
     - [运行后端代码](#%E8%BF%90%E8%A1%8C%E5%90%8E%E7%AB%AF%E4%BB%A3%E7%A0%81)
+    - [运行后端项目](#%E8%BF%90%E8%A1%8C%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE)
+    - [运行前端项目](#%E8%BF%90%E8%A1%8C%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE)
     - [后端goland编辑器参考](#%E5%90%8E%E7%AB%AFgoland%E7%BC%96%E8%BE%91%E5%99%A8%E5%8F%82%E8%80%83)
-    - [运行前端代码](#%E8%BF%90%E8%A1%8C%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81)
     - [vscode编辑器设置参考](#vscode%E7%BC%96%E8%BE%91%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%8F%82%E8%80%83)
   - [后端环境搭建及编辑器使用 参考文档](#%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8-%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)
   - [前端环境搭建及编辑器使用参考文档](#%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)
@@ -102,7 +103,7 @@ go mod tidy
 - 在相应功能文件夹下，执行 `go run main.go` 即可。
 
 
-### 运行后端项目代码
+### 运行后端项目
 
 - 首先git clone 本项目
 
@@ -135,24 +136,25 @@ mysql -h localhost -u root -p go_gateway < go_gateway.sql --default-character-se
 
 修改 ./conf/dev/mysql.toml 和 ./conf/dev/redis.toml 为自己的环境配置。
 
-- 在相应功能文件夹下，执行 `go run main.go` 即可。
+- 运行面板、代理服务
 
-### 后端goland编辑器参考
+运行管理面板配合前端项目 - 达成服务管理功能
+```
+go run main.go -endpoint dashboard
+```
 
-- 用 goland 打开项目目录
+运行代理服务
+```
+go run main.go -endpoint server
+```
 
-- 设置 goland 支持 go mod
-    - Preferences-> Go-> Go Modules（vgo）
-    - 勾选 Enable Go Modules（vgo）
-    - proxy 设置：https://goproxy.cn
-
-- 在相应文件夹下的main方法中， 点击 `run go build` 即可。
-
-### 运行前端代码
+### 运行前端项目
 
 - 首先git clone 本项目
 
-`git clone ssh://git@git.imooc.com:80/e421083458/go_gateway_view.git`
+```
+git clone git@github.com:e421083458/go_gateway_view.git
+```
 
 - 确保本地环境安装了nodejs
 
@@ -175,6 +177,18 @@ cnpm install
 ```
 npm run dev
 ```
+
+### 后端goland编辑器参考
+
+- 用 goland 打开项目目录
+
+- 设置 goland 支持 go mod
+    - Preferences-> Go-> Go Modules（vgo）
+    - 勾选 Enable Go Modules（vgo）
+    - proxy 设置：https://goproxy.cn
+
+- 在相应文件夹下的main方法中， 点击 `run go build` 即可。
+
 
 ### vscode编辑器设置参考
 
