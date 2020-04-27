@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/e421083458/go_gateway/dao"
 	"github.com/e421083458/go_gateway/dto"
 	"github.com/e421083458/go_gateway/middleware"
@@ -23,6 +22,16 @@ func AdminLoginRegister(router *gin.RouterGroup) {
 type AdminLogin struct {
 }
 
+// ListPage godoc
+// @Summary 登陆接口
+// @Description 登陆接口
+// @Tags 管理员接口
+// @ID /admin_login/login
+// @Accept  json
+// @Produce  json
+// @Param body body dto.AdminLoginInput true "body"
+// @Success 200 {object} middleware.Response{data=dto.AdminLoginOutput} "success"
+// @Router /admin_login/login [post]
 func (AdminLogin *AdminLogin) Login(c *gin.Context) {
 	params := &dto.AdminLoginInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -43,11 +52,21 @@ func (AdminLogin *AdminLogin) Login(c *gin.Context) {
 	adminBts, _ := json.Marshal(adminSession)
 	session.Set(public.AdminInfoSessionKey, string(adminBts))
 	session.Save()
-	fmt.Println(session.Get(public.AdminInfoSessionKey))
-	middleware.ResponseSuccess(c, map[string]string{"token": adminInfo.UserName})
+	//fmt.Println(session.Get(public.AdminInfoSessionKey))
+	output := &dto.AdminLoginOutput{Token: adminInfo.UserName}
+	middleware.ResponseSuccess(c, output)
 	return
 }
 
+// Logout godoc
+// @Summary 退出接口
+// @Description 退出接口
+// @Tags 管理员接口
+// @ID /admin_login/logout
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} middleware.Response{data=string} "success"
+// @Router /admin_login/logout [post]
 func (AdminLogin *AdminLogin) Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Clear()

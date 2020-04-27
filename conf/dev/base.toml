@@ -32,3 +32,8 @@
     cluster_ssl_port = 8443
     cluster_realserver_ip = ["127.0.0.1"]
 
+[swagger]
+    title="GO 微服务网关 swagger API"
+    desc="GO 微服务网关 swagger API."
+    host="127.0.0.1:8081"
+    base_path=""

@@ -6,7 +6,7 @@ cp -rf * ../tmp_dir
 cd ../tmp_dir
 rm -rf .git
 mv README.md README_bak.md
-cat README_bak.md | awk '{gsub(/github.com\/e421083458\/gateway_demo/,"git.imooc.com/e421083458/go_gateway"); print $0}' > README.md
+cat README_bak.md | awk '{gsub(/github.com\/e421083458/,"git.imooc.com/coding-436"); print $0}' > README.md
 rm README_bak.md
 cp -rf * /Users/niuyufu/imooc/go_gateway
 cd ../

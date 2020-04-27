@@ -21,6 +21,15 @@ func AdminRegister(router *gin.RouterGroup) {
 type AdminController struct {
 }
 
+// ListPage godoc
+// @Summary 登陆信息
+// @Description 登陆信息
+// @Tags 管理员接口
+// @ID /admin/admin_info
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} middleware.Response{data=dto.AdminInfoOutput} "success"
+// @Router /admin/admin_info [get]
 func (admin *AdminController) AdminInfo(c *gin.Context) {
 	session := sessions.Default(c)
 	adminInfoStr := session.Get(public.AdminInfoSessionKey)

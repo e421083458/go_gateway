@@ -7,7 +7,7 @@ import (
 )
 
 type AdminChangePwdInput struct {
-	Password    string `json:"password" form:"password" comment:"新密码" validate:"required"`
+	Password string `json:"password" form:"password" comment:"新密码" validate:"required"`
 }
 
 func (params *AdminChangePwdInput) GetValidParams(c *gin.Context) error {
@@ -21,6 +21,10 @@ type AdminLoginInput struct {
 
 func (params *AdminLoginInput) GetValidParams(c *gin.Context) error {
 	return public.DefaultGetValidParams(c, params)
+}
+
+type AdminLoginOutput struct {
+	Token string `json:"token" form:"token" comment:"token" en_comment:"token" validate:"required"`
 }
 
 type AdminSession struct {
