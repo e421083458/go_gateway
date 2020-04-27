@@ -20,20 +20,20 @@
 ---|---
 熔断器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/circuit_breaker)
 单机流量统计| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/flow_count)
-浏览器正常代理| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/forward_proxy)
+分布式流量统计| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/redis_flow_count)
 grpc反向代理| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/grpc_reverse_proxy)
 grpc反向代理整合中间件| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/grpc_reverse_proxy_advance)
 grpc反向代理整合负载均衡器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/grpc_reverse_proxy_lb)
 grpc测试服务器、客户端、grpc-gateway| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/grpc_server_client)
-负载均衡器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance)
-负载均衡主动探测| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance_client_discovery)
-负载均衡服务发现| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance_server_discovery)
+负载均衡器支持四种负载策略 | [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance)
+负载均衡之主动探测 | [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance_client_discovery)
+负载均衡之服务发现 | [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/load_balance_server_discovery)
 中间件实现| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/middleware)
 观察者模式| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/observer)
 限流器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/rate_limiter)
 测试下游服务器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/real_server)
 测试下游服务器+服务注册| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/real_server_register)
-分布式流量统计| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/redis_flow_count)
+浏览器正向代理| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/forward_proxy)
 http反向代理实现| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/reverse_proxy)
 http反向代理简单版| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/reverse_proxy_simple)
 http2反向代理| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/reverse_proxy_http2)
@@ -43,9 +43,8 @@ http反向代理权限校验| [源代码](https://github.com/e421083458/gateway_
 tcp代理服务器实现| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/tcp_proxy)
 thrift服务器与客户端| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/thrift_server_client)
 websocket代理服务器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/websocket)
-websocket代理服务器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/websocket)
 zookeeper基本使用| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/proxy/zookeeper)
-==基础==| ===基础===
+==基础功能==| ===基础功能===
 函数是一等公民| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/functional)
 http客户端| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/http_client)
 http服务端| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/http_server)
@@ -54,10 +53,8 @@ tcp代理| [源代码](https://github.com/e421083458/gateway_demo/tree/master/de
 tcp服务器| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/tcp_server)
 udp客户端| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/udp_client)
 udp服务端| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/udp_server)
-自定义协议获取完整报文| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/unpack)
-
-其他正在补充...| [源代码](其他正在补充...
-
+tcp自定义协议获取完整报文| [源代码](https://github.com/e421083458/gateway_demo/tree/master/demo/base/unpack)
+其他正在补充... | 其他正在补充...
 
 # Go 微服务网关代码使用说明
 
@@ -73,7 +70,7 @@ udp服务端| [源代码](https://github.com/e421083458/gateway_demo/tree/master
 
 项目的预览地址：http://gateway.itpp.cn:9527/
 
-电子邮箱：e421083458@163.com
+电子邮箱：niuyufu@didiglobal.com(招php、golang中简历砸过来)
 
 微信公众号：
 
@@ -87,7 +84,27 @@ udp服务端| [源代码](https://github.com/e421083458/gateway_demo/tree/master
 
 `git clone git@github.com:e421083458/gateway_demo.git`
 
-或者 
+- 确保本地环境安装了Go 1.12+版本
+
+```
+go version
+go version go1.12.15 darwin/amd64
+```
+
+- 下载类库依赖
+
+```
+export GO111MODULE=on && export GOPROXY=https://goproxy.cn
+cd gateway_demo
+go mod tidy
+```
+
+- 在相应功能文件夹下，执行 `go run main.go` 即可。
+
+
+### 运行后端项目代码
+
+- 首先git clone 本项目
 
 `git clone git@github.com:e421083458/go_gateway.git`
 
@@ -103,11 +120,20 @@ go version go1.12.15 darwin/amd64
 
 ```
 export GO111MODULE=on && export GOPROXY=https://goproxy.cn
-cd gateway_demo
-或者
 cd go_gateway
 go mod tidy
 ```
+
+- 创建 db 并导入数据
+
+```
+mysql -h localhost -u root -p -e "CREATE DATABASE go_gateway DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql -h localhost -u root -p go_gateway < go_gateway.sql --default-character-set=utf8
+```
+
+- 调整 mysql、redis 配置文件
+
+修改 ./conf/dev/mysql.toml 和 ./conf/dev/redis.toml 为自己的环境配置。
 
 - 在相应功能文件夹下，执行 `go run main.go` 即可。
 
