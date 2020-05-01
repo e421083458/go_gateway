@@ -50,6 +50,16 @@ func (admin *AdminController) AdminInfo(c *gin.Context) {
 	return
 }
 
+// ChangePwd godoc
+// @Summary 修改密码
+// @Description 修改密码
+// @Tags 管理员接口
+// @ID /admin/change_pwd
+// @Accept  json
+// @Produce  json
+// @Param body body dto.AdminChangePwdInput true "body"
+// @Success 200 {object} middleware.Response{data=string} "success"
+// @Router /admin/change_pwd [post]
 func (admin *AdminController) ChangePwd(c *gin.Context) {
 	params := &dto.AdminChangePwdInput{}
 	if err := params.GetValidParams(c); err != nil {

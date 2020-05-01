@@ -12,6 +12,11 @@ type ServiceListInput struct {
 	PageNo   int    `json:"page_no" form:"page_no" comment:"页码" validate:"required,min=1,max=999"`
 }
 
+type ServiceListOutput struct {
+	List  []ServiceListItemOutput `json:"list" form:"list" comment:"服务列表"`
+	Total int64                   `json:"total" form:"total" comment:"服务总数"`
+}
+
 type ServiceLoadTypeStat struct {
 	LoadType int `json:"load_type" form:"load_type" comment:"负载类型"`
 	Num      int `json:"num" form:"num" comment:"服务数量"`

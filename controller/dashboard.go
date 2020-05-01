@@ -21,6 +21,15 @@ func DashBoardRegister(router *gin.RouterGroup) {
 type DashBoardController struct {
 }
 
+// PanelGroupData godoc
+// @Summary 面板组数据指标
+// @Description 面板组数据指标
+// @Tags 系统大盘
+// @ID /dashboard/panel_group_data
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} middleware.Response{data=dto.PanelGroupDataOutput} "success"
+// @Router /dashboard/panel_group_data [get]
 func (admin *DashBoardController) PanelGroupData(c *gin.Context) {
 	counter, err := public.FlowCounterHandler.GetCounter(public.FlowTotal)
 	if err != nil {
@@ -48,15 +57,26 @@ func (admin *DashBoardController) PanelGroupData(c *gin.Context) {
 		return
 	}
 	dayCount, _ := counter.GetDayCount(time.Now())
-	middleware.ResponseSuccess(c, map[string]interface{}{
-		"serviceNum":      serviceNum,
-		"todayRequestNum": dayCount,
-		"currentQps":      counter.GetQPS(),
-		"appNum":          appNum,
-	})
+
+	output := dto.PanelGroupDataOutput{
+		ServiceNum:      serviceNum,
+		TodayRequestNum: dayCount,
+		CurrentQps:      counter.GetQPS(),
+		AppNum:          appNum,
+	}
+	middleware.ResponseSuccess(c, output)
 	return
 }
 
+// FlowStat godoc
+// @Summary 流量统计
+// @Description 流量统计
+// @Tags 系统大盘
+// @ID /dashboard/flow_stat
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} middleware.Response{data=dto.StatisticsOutput} "success"
+// @Router /dashboard/flow_stat [get]
 func (admin *DashBoardController) FlowStat(c *gin.Context) {
 	counter, _ := public.FlowCounterHandler.GetCounter(public.FlowTotal)
 
@@ -84,6 +104,15 @@ func (admin *DashBoardController) FlowStat(c *gin.Context) {
 	return
 }
 
+// ServiceStat godoc
+// @Summary 服务统计饼状图
+// @Description 服务统计饼状图
+// @Tags 系统大盘
+// @ID /dashboard/service_stat
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} middleware.Response{data=dto.ServiceStatOutput} "success"
+// @Router /dashboard/service_stat [get]
 func (admin *DashBoardController) ServiceStat(c *gin.Context) {
 	serviceInfo := &dao.ServiceInfo{}
 	tx, err := lib.GetGormPool("default")

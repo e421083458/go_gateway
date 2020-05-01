@@ -16,6 +16,11 @@ func (params *APPListInput) GetValidParams(c *gin.Context) error {
 	return public.DefaultGetValidParams(c, params)
 }
 
+type APPListOutput struct {
+	List  []APPListItemOutput `json:"list" form:"list" comment:"租户列表"`
+	Total int64               `json:"total" form:"total" comment:"租户总数"`
+}
+
 type APPListItemOutput struct {
 	ID        int64     `json:"id" gorm:"primary_key"`
 	AppID     string    `json:"app_id" gorm:"column:app_id" description:"租户id	"`
@@ -37,6 +42,11 @@ type APPDetailInput struct {
 
 func (params *APPDetailInput) GetValidParams(c *gin.Context) error {
 	return public.DefaultGetValidParams(c, params)
+}
+
+type StatisticsOutput struct {
+	Today     []int64 `json:"today" form:"today" comment:"今日统计" validate:"required"`
+	Yesterday []int64 `json:"yesterday" form:"yesterday" comment:"昨日统计" validate:"required"`
 }
 
 type APPAddHttpInput struct {

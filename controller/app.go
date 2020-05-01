@@ -25,6 +25,18 @@ func APPRegister(router *gin.RouterGroup) {
 type APPController struct {
 }
 
+// APPList godoc
+// @Summary 租户列表
+// @Description 租户列表
+// @Tags 租户管理接口
+// @ID /app/app_list
+// @Accept  json
+// @Produce  json
+// @Param info query string false "关键词"
+// @Param page_size query string true "每页多少条"
+// @Param page_no query string true "页码"
+// @Success 200 {object} middleware.Response{data=dto.APPListOutput} "success"
+// @Router /app/app_list [get]
 func (admin *APPController) APPList(c *gin.Context) {
 	params := &dto.APPListInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -55,10 +67,24 @@ func (admin *APPController) APPList(c *gin.Context) {
 			RealQps:  realQps,
 		})
 	}
-	middleware.ResponseSuccess(c, map[string]interface{}{"list": outputList, "total": total})
+	output := dto.APPListOutput{
+		List:  outputList,
+		Total: total,
+	}
+	middleware.ResponseSuccess(c, output)
 	return
 }
 
+// APPDetail godoc
+// @Summary 租户详情
+// @Description 租户详情
+// @Tags 租户管理接口
+// @ID /app/app_detail
+// @Accept  json
+// @Produce  json
+// @Param id query string true "租户ID"
+// @Success 200 {object} middleware.Response{data=dao.App} "success"
+// @Router /app/app_detail [get]
 func (admin *APPController) APPDetail(c *gin.Context) {
 	params := &dto.APPDetailInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -77,6 +103,16 @@ func (admin *APPController) APPDetail(c *gin.Context) {
 	return
 }
 
+// APPDelete godoc
+// @Summary 租户删除
+// @Description 租户删除
+// @Tags 租户管理接口
+// @ID /app/app_delete
+// @Accept  json
+// @Produce  json
+// @Param id query string true "租户ID"
+// @Success 200 {object} middleware.Response{data=string} "success"
+// @Router /app/app_delete [get]
 func (admin *APPController) APPDelete(c *gin.Context) {
 	params := &dto.APPDetailInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -100,6 +136,16 @@ func (admin *APPController) APPDelete(c *gin.Context) {
 	return
 }
 
+// AppAdd godoc
+// @Summary 租户添加
+// @Description 租户添加
+// @Tags 租户管理接口
+// @ID /app/app_add
+// @Accept  json
+// @Produce  json
+// @Param body body dto.APPAddHttpInput true "body"
+// @Success 200 {object} middleware.Response{data=string} "success"
+// @Router /app/app_add [post]
 func (admin *APPController) AppAdd(c *gin.Context) {
 	params := &dto.APPAddHttpInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -135,6 +181,16 @@ func (admin *APPController) AppAdd(c *gin.Context) {
 	return
 }
 
+// AppUpdate godoc
+// @Summary 租户更新
+// @Description 租户更新
+// @Tags 租户管理接口
+// @ID /app/app_update
+// @Accept  json
+// @Produce  json
+// @Param body body dto.APPUpdateHttpInput true "body"
+// @Success 200 {object} middleware.Response{data=string} "success"
+// @Router /app/app_update [post]
 func (admin *APPController) AppUpdate(c *gin.Context) {
 	params := &dto.APPUpdateHttpInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -165,6 +221,16 @@ func (admin *APPController) AppUpdate(c *gin.Context) {
 	return
 }
 
+// AppStatistics godoc
+// @Summary 租户统计
+// @Description 租户统计
+// @Tags 租户管理接口
+// @ID /app/app_stat
+// @Accept  json
+// @Produce  json
+// @Param id query string true "租户ID"
+// @Success 200 {object} middleware.Response{data=dto.StatisticsOutput} "success"
+// @Router /app/app_stat [get]
 func (admin *APPController) AppStatistics(c *gin.Context) {
 	params := &dto.APPDetailInput{}
 	if err := params.GetValidParams(c); err != nil {
@@ -239,9 +305,10 @@ func (admin *APPController) AppStatistics(c *gin.Context) {
 	//	180,
 	//	200,
 	//}
-	middleware.ResponseSuccess(c, map[string][]int64{
-		"today":     todayStat,
-		"yesterday": yesterdayStat,
-	})
+	stat := dto.StatisticsOutput{
+		Today:     todayStat,
+		Yesterday: yesterdayStat,
+	}
+	middleware.ResponseSuccess(c, stat)
 	return
 }
