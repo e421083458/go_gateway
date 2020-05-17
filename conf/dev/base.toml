@@ -15,7 +15,7 @@
     ]
 
 [session]
-    redis_server = "192.168.3.4:6379"   #redis session server
+    redis_server = "127.0.0.1:6379"   #redis session server
 
 [log]
     log_level = "trace"         #日志打印最低级别
