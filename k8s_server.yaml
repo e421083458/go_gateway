@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: go-gateteway-server
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       name: go-gateteway-server
@@ -17,7 +17,7 @@ spec:
           image: go-gateteway-server:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 8880
+            - containerPort: 8080
             - containerPort: 4433
 ---
 apiVersion: v1
@@ -26,9 +26,9 @@ metadata:
   name: go-gateteway-server
 spec:
   ports:
-    - port: 8880
+    - port: 8080
       name: "http"
-      targetPort: 8880
+      targetPort: 8080
       protocol: TCP
       nodePort: 30080
     - port: 4433

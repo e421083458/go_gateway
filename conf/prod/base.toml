@@ -30,9 +30,9 @@
         color = false
 
 [cluster]
-    cluster_ip="127.0.0.1"
-    cluster_port="8080"
-    cluster_ssl_port="4433"
+    cluster_ip="192.168.3.4"
+    cluster_port="30080"
+    cluster_ssl_port="30443"
 
 [swagger]
     title="go_gateway swagger API"

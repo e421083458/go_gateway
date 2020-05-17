@@ -215,6 +215,23 @@ go_gateway_demo_view 与 go_gateway_demo 是视频时开发演示的项目。
 - 前端项目一个端口
 - 接口项目一个端口
 - 使用nginx将后端接口设置到跟前端同域下访问
+```
+    server {
+        listen       8882;
+        server_name  localhost;
+        root /Users/niuyufu/VueProjects/go_gateway_view/dist;
+        index  index.html index.htm index.php;
+
+        location / {
+            try_files $uri $uri/ /index.html?$args;
+        }
+
+        location /prod-api/ {
+            proxy_pass http://127.0.0.1:8880/;
+        }
+    }
+
+```
 - 代理服务器独立部署
 - 后端项目启动脚本，所有后端只需要一个脚本了：vim onekeyupdate.sh
 
