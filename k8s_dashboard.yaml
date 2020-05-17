@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go_gateteway_server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: go_gateteway_server
+  template:
+    metadata:
+      labels:
+        name: go_gateteway_server
+    spec:
+      containers:
+        - name: go_gateteway_server
+          image: go_gateteway_server
+          ports:
+            - containerPort: 8080
+            - containerPort: 4433
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go_gateteway_server
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+    - port: 4433
+      targetPort: 4433
+      protocol: TCP
+  type: NodePort
+  selector:
+    name: go_gateteway_server
