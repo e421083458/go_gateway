@@ -10,6 +10,11 @@
     - [运行前端项目](#%E8%BF%90%E8%A1%8C%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE)
     - [后端goland编辑器参考](#%E5%90%8E%E7%AB%AFgoland%E7%BC%96%E8%BE%91%E5%99%A8%E5%8F%82%E8%80%83)
     - [vscode编辑器设置参考](#vscode%E7%BC%96%E8%BE%91%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%8F%82%E8%80%83)
+  - [代码部署](#%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2)
+    - [实体机部署](#%E5%AE%9E%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2)
+      - [1、每个项目独立部署](#1%E6%AF%8F%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%8B%AC%E7%AB%8B%E9%83%A8%E7%BD%B2)
+      - [2、前后端合并部署](#2%E5%89%8D%E5%90%8E%E7%AB%AF%E5%90%88%E5%B9%B6%E9%83%A8%E7%BD%B2)
+    - [k8s部署](#k8s%E9%83%A8%E7%BD%B2)
   - [后端环境搭建及编辑器使用 参考文档](#%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8-%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)
   - [前端环境搭建及编辑器使用参考文档](#%E5%89%8D%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)
 
@@ -202,7 +207,8 @@ npm run dev
 
 说明一下：
 go_gateway_demo_view 与 go_gateway_demo 是视频时开发演示的项目。
-实际放置到 github上是  go_gateway_view 与 go_gateway_demo
+
+实际放置到 github上是  go_gateway_view 与 go_gateway
 
 ### 实体机部署
 #### 1、每个项目独立部署
