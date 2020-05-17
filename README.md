@@ -198,6 +198,52 @@ npm run dev
 
 - 安装格式化插件 ESLint、Vetur、vue-beautify
 
+## 代码部署
+
+说明一下：
+go_gateway_demo_view 与 go_gateway_demo 是视频时开发演示的项目。
+实际放置到 github上是  go_gateway_view 与 go_gateway_demo
+
+### 实体机部署
+#### 1、每个项目独立部署
+- 前端项目一个端口
+- 接口项目一个端口
+- 使用nginx将后端接口设置到跟前端同域下访问
+- 代理服务器独立部署
+- 后端项目启动脚本，所有后端只需要一个脚本了：vim onekeyupdate.sh
+
+#### 2、前后端合并部署
+- 前端打包dist放到后端同一项目中
+- 后端设置: vim http_proxy_router/route.go
+```
+router.Static("/dist", "./dist")
+```
+- 启动接口项目
+- 启动代理服务器，所有项目只需要一个脚本了: vim onekeyupdate.sh
+
+### k8s部署
+
+- 创建docker文件 vim dockerfile_dashboard
+- 创建docker镜像：
+```
+docker build -f dockerfile_dashboard -t dockerfile_dashboard .
+```
+- 运行测试docker镜像: 
+```
+docker run -it --rm --name go_gateteway_dashboard go_gateteway_dashboard
+```
+- 创建交叉编译脚本，解决build太慢问题  vim docker_build.sh
+- 编写服务编排文件，vim k8s_dashboard.yaml
+- 启动服务
+```
+kubectl apply -f k8s_dashboard.yaml
+kubectl apply -f k8s_server.yaml
+```
+- 查看所有部署
+```
+kubectl get all
+```
+
 ## 后端环境搭建及编辑器使用 参考文档
 
 go环境安装介绍

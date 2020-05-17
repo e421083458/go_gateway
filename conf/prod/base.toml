@@ -1,0 +1,41 @@
+# This is base config
+
+[base]
+    debug_mode="debug"
+    time_location="Asia/Chongqing"
+
+[http]
+    addr =":8880"                       # 监听地址, default ":8700"
+    read_timeout = 10                   # 读取超时时长
+    write_timeout = 10                  # 写入超时时长
+    max_header_bytes = 20               # 最大的header大小，二进制位长度
+    allow_ip = [                        # 白名单ip列表
+        "127.0.0.1",
+        "192.168.1.1"
+    ]
+
+[session]
+    redis_server = "192.168.3.4:6379"   #redis session server
+
+[log]
+    log_level = "trace"         #日志打印最低级别
+    [log.file_writer]           #文件写入配置
+        on = true
+        log_path = "./logs/go_gateway.inf.log"
+        rotate_log_path = "./logs/go_gateway.inf.log.%Y%M%D%H"
+        wf_log_path = "./logs/go_gateway.wf.log"
+        rotate_wf_log_path = "./logs/go_gateway.wf.log.%Y%M%D%H"
+    [log.console_writer]        #工作台输出
+        on = false
+        color = false
+
+[cluster]
+    cluster_ip="127.0.0.1"
+    cluster_port="8080"
+    cluster_ssl_port="4433"
+
+[swagger]
+    title="go_gateway swagger API"
+    desc="This is a sample server celler server."
+    host="127.0.0.1:8880"
+    base_path=""
