@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"github.com/e421083458/go_gateway/dao"
+	"github.com/e421083458/go_gateway/golang_common/lib"
 	"github.com/e421083458/go_gateway/grpc_proxy_router"
 	"github.com/e421083458/go_gateway/http_proxy_router"
 	"github.com/e421083458/go_gateway/router"
 	"github.com/e421083458/go_gateway/tcp_proxy_router"
-	"github.com/e421083458/golang_common/lib"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,23 +17,23 @@ import (
 //config ./conf/prod/ 对应配置文件夹
 
 var (
-	endpoint = flag.String("endpoint","","input endpoint dashboard or server")
-	config = flag.String("config","","input config file like ./conf/dev/")
+	endpoint = flag.String("endpoint", "", "input endpoint dashboard or server")
+	config   = flag.String("config", "", "input config file like ./conf/dev/")
 )
 
-func main()  {
+func main() {
 	flag.Parse()
-	if *endpoint == ""{
+	if *endpoint == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
-	if *config == ""{
+	if *config == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	if *endpoint=="dashboard"{
-		lib.InitModule(*config,[]string{"base","mysql","redis",})
+	if *endpoint == "dashboard" {
+		lib.InitModule(*config)
 		defer lib.Destroy()
 		router.HttpServerRun()
 
@@ -42,8 +42,8 @@ func main()  {
 		<-quit
 
 		router.HttpServerStop()
-	}else{
-		lib.InitModule(*config,[]string{"base","mysql","redis",})
+	} else {
+		lib.InitModule(*config)
 		defer lib.Destroy()
 		dao.ServiceManagerHandler.LoadOnce()
 		dao.AppManagerHandler.LoadOnce()

@@ -4,7 +4,7 @@ import (
 	"github.com/e421083458/go_gateway/controller"
 	"github.com/e421083458/go_gateway/docs"
 	"github.com/e421083458/go_gateway/middleware"
-	"github.com/e421083458/golang_common/lib"
+	"github.com/e421083458/go_gateway/golang_common/lib"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/files"
@@ -76,7 +76,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	adminLoginRouter := router.Group("/admin_login")
-	store, err := sessions.NewRedisStore(10, "tcp", lib.GetStringConf("base.session.redis_server"), "", []byte("secret"))
+	store, err := sessions.NewRedisStore(10, "tcp", lib.GetStringConf("base.session.redis_server"), lib.GetStringConf("base.session.redis_password"), []byte("secret"))
 	if err != nil {
 		log.Fatalf("sessions.NewRedisStore err:%v", err)
 	}
