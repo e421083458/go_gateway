@@ -2,10 +2,9 @@ package dao
 
 import (
 	"github.com/e421083458/go_gateway/dto"
-	"github.com/e421083458/go_gateway/public"
 	"github.com/e421083458/go_gateway/golang_common/lib"
-	"github.com/e421083458/gorm"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"net/http/httptest"
 	"sync"
 	"time"
@@ -30,12 +29,12 @@ func (t *App) TableName() string {
 
 func (t *App) Find(c *gin.Context, tx *gorm.DB, search *App) (*App, error) {
 	model := &App{}
-	err := tx.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(model).Error
+	err := tx.Where(search).Find(model).Error
 	return model, err
 }
 
 func (t *App) Save(c *gin.Context, tx *gorm.DB) error {
-	if err := tx.SetCtx(public.GetGinTraceContext(c)).Save(t).Error; err != nil {
+	if err := tx.Save(t).Error; err != nil {
 		return err
 	}
 	return nil
@@ -49,7 +48,7 @@ func (t *App) APPList(c *gin.Context, tx *gorm.DB, params *dto.APPListInput) ([]
 
 	//limit offset,pagesize
 	offset := (pageNo - 1) * pageSize
-	query := tx.SetCtx(public.GetGinTraceContext(c))
+	query := tx
 	query = query.Table(t.TableName()).Select("*")
 	query = query.Where("is_delete=?", 0)
 	if params.Info != "" {

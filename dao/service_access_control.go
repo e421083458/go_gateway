@@ -1,9 +1,8 @@
 package dao
 
 import (
-	"github.com/e421083458/go_gateway/public"
-	"github.com/e421083458/gorm"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 )
 
 type AccessControl struct {
@@ -23,12 +22,12 @@ func (t *AccessControl) TableName() string {
 
 func (t *AccessControl) Find(c *gin.Context, tx *gorm.DB, search *AccessControl) (*AccessControl, error) {
 	model := &AccessControl{}
-	err := tx.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(model).Error
+	err := tx.Where(search).Find(model).Error
 	return model, err
 }
 
 func (t *AccessControl) Save(c *gin.Context, tx *gorm.DB) error {
-	if err := tx.SetCtx(public.GetGinTraceContext(c)).Save(t).Error; err != nil {
+	if err := tx.Save(t).Error; err != nil {
 		return err
 	}
 	return nil
@@ -37,7 +36,7 @@ func (t *AccessControl) Save(c *gin.Context, tx *gorm.DB) error {
 func (t *AccessControl) ListBYServiceID(c *gin.Context, tx *gorm.DB, serviceID int64) ([]AccessControl, int64, error) {
 	var list []AccessControl
 	var count int64
-	query := tx.SetCtx(public.GetGinTraceContext(c))
+	query := tx
 	query = query.Table(t.TableName()).Select("*")
 	query = query.Where("service_id=?", serviceID)
 	err := query.Order("id desc").Find(&list).Error

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/e421083458/go_gateway/public"
 	"github.com/e421083458/go_gateway/reverse_proxy/load_balance"
-	"github.com/e421083458/gorm"
+	"github.com/jinzhu/gorm"
 	"github.com/gin-gonic/gin"
 	"net"
 	"net/http"
@@ -36,12 +36,12 @@ func (t *LoadBalance) TableName() string {
 
 func (t *LoadBalance) Find(c *gin.Context, tx *gorm.DB, search *LoadBalance) (*LoadBalance, error) {
 	model := &LoadBalance{}
-	err := tx.SetCtx(public.GetGinTraceContext(c)).Where(search).Find(model).Error
+	err := tx.Where(search).Find(model).Error
 	return model, err
 }
 
 func (t *LoadBalance) Save(c *gin.Context, tx *gorm.DB) error {
-	if err := tx.SetCtx(public.GetGinTraceContext(c)).Save(t).Error; err != nil {
+	if err := tx.Save(t).Error; err != nil {
 		return err
 	}
 	return nil

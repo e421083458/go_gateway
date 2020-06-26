@@ -5,8 +5,8 @@ import (
 	"database/sql/driver"
 	"errors"
 	"fmt"
-	"github.com/e421083458/gorm"
-	_ "github.com/e421083458/gorm/dialects/mysql"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -51,7 +51,7 @@ func InitDBPool(path string) error {
 			return err
 		}
 		dbgorm.LogMode(true)
-		dbgorm.LogCtx(true)
+		//dbgorm.LogCtx(true)
 		dbgorm.SetLogger(&MysqlGormLogger{Trace: NewTrace()})
 		dbgorm.DB().SetMaxIdleConns(DbConf.MaxIdleConn)
 		dbgorm.DB().SetMaxOpenConns(DbConf.MaxOpenConn)
@@ -133,11 +133,11 @@ func (logger *MysqlGormLogger) Print(values ...interface{}) {
 
 // LogCtx(true) 时会执行改方法
 func (logger *MysqlGormLogger) CtxPrint(s *gorm.DB,values ...interface{}) {
-	ctx,ok:=s.GetCtx()
+	//ctx,ok:=s.GetCtx()
 	trace:=NewTrace()
-	if ok{
-		trace=ctx.(*TraceContext)
-	}
+	//if ok{
+	//	trace=ctx.(*TraceContext)
+	//}
 	message := logger.LogFormatter(values...)
 	if message["level"] == "sql" {
 		Log.TagInfo(trace, "_com_mysql_success", message)
