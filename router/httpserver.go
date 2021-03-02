@@ -25,7 +25,7 @@ func HttpServerRun() {
 	}
 	go func() {
 		log.Printf(" [INFO] HttpServerRun:%s\n",lib.GetStringConf("base.http.addr"))
-		if err := HttpSrvHandler.ListenAndServe(); err != nil {
+		if err := HttpSrvHandler.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf(" [ERROR] HttpServerRun:%s err:%v\n", lib.GetStringConf("base.http.addr"), err)
 		}
 	}()
