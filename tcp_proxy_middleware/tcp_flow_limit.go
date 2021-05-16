@@ -3,6 +3,7 @@ package tcp_proxy_middleware
 import (
 	"fmt"
 	"github.com/e421083458/go_gateway/dao"
+	"github.com/e421083458/go_gateway/handler"
 	"github.com/e421083458/go_gateway/public"
 	"strings"
 )
@@ -18,9 +19,9 @@ func TCPFlowLimitMiddleware() func(c *TcpSliceRouterContext) {
 		serviceDetail := serverInterface.(*dao.ServiceDetail)
 
 		if serviceDetail.AccessControl.ServiceFlowLimit != 0 {
-			serviceLimiter, err := public.FlowLimiterHandler.GetLimiter(
+			serviceLimiter, err := handler.FlowLimiterHandler.GetLimiter(
 				public.FlowServicePrefix+serviceDetail.Info.ServiceName,
-				float64(serviceDetail.AccessControl.ServiceFlowLimit))
+				float64(serviceDetail.AccessControl.ServiceFlowLimit), 0, true)
 			if err != nil {
 				c.conn.Write([]byte(err.Error()))
 				c.Abort()
@@ -39,9 +40,9 @@ func TCPFlowLimitMiddleware() func(c *TcpSliceRouterContext) {
 			clientIP = splits[0]
 		}
 		if serviceDetail.AccessControl.ClientIPFlowLimit > 0 {
-			clientLimiter, err := public.FlowLimiterHandler.GetLimiter(
+			clientLimiter, err := handler.FlowLimiterHandler.GetLimiter(
 				public.FlowServicePrefix+serviceDetail.Info.ServiceName+"_"+clientIP,
-				float64(serviceDetail.AccessControl.ClientIPFlowLimit))
+				float64(serviceDetail.AccessControl.ClientIPFlowLimit), 0, true)
 			if err != nil {
 				c.conn.Write([]byte(err.Error()))
 				c.Abort()

@@ -55,3 +55,7 @@ func (r *RandomBalance) Update() {
 		}
 	}
 }
+
+func (r *RandomBalance) Close() {
+	r.conf.CloseWatch()
+}

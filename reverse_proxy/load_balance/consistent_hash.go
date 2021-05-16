@@ -108,3 +108,7 @@ func (c *ConsistentHashBanlance) Update() {
 		}
 	}
 }
+
+func (r *ConsistentHashBanlance) Close() {
+	r.conf.CloseWatch()
+}

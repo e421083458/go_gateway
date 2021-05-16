@@ -2,6 +2,7 @@ package tcp_proxy_middleware
 
 import (
 	"github.com/e421083458/go_gateway/dao"
+	"github.com/e421083458/go_gateway/handler"
 	"github.com/e421083458/go_gateway/public"
 )
 
@@ -15,8 +16,7 @@ func TCPFlowCountMiddleware() func(c *TcpSliceRouterContext) {
 		}
 		serviceDetail := serverInterface.(*dao.ServiceDetail)
 
-		//统计项 1 全站 2 服务 3 租户
-		totalCounter, err := public.FlowCounterHandler.GetCounter(public.FlowTotal)
+		totalCounter, err := handler.ServiceCounterHandler.GetCounter(public.FlowTotal)
 		if err != nil {
 			c.conn.Write([]byte(err.Error()))
 			c.Abort()
@@ -24,7 +24,7 @@ func TCPFlowCountMiddleware() func(c *TcpSliceRouterContext) {
 		}
 		totalCounter.Increase()
 
-		serviceCounter, err := public.FlowCounterHandler.GetCounter(public.FlowServicePrefix + serviceDetail.Info.ServiceName)
+		serviceCounter, err := handler.ServiceCounterHandler.GetCounter(public.FlowServicePrefix + serviceDetail.Info.ServiceName)
 		if err != nil {
 			c.conn.Write([]byte(err.Error()))
 			c.Abort()

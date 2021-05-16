@@ -59,3 +59,7 @@ func (r *RoundRobinBalance) Update() {
 		}
 	}
 }
+
+func (r *RoundRobinBalance) Close() {
+	r.conf.CloseWatch()
+}

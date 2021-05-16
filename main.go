@@ -45,8 +45,8 @@ func main() {
 	} else {
 		lib.InitModule(*config)
 		defer lib.Destroy()
-		dao.ServiceManagerHandler.LoadOnce()
-		dao.AppManagerHandler.LoadOnce()
+		dao.ServiceManagerHandler.LoadAndWatch()
+		dao.AppManagerHandler.LoadAndWatch()
 
 		go func() {
 			http_proxy_router.HttpServerRun()
@@ -55,18 +55,18 @@ func main() {
 			http_proxy_router.HttpsServerRun()
 		}()
 		go func() {
-			tcp_proxy_router.TcpServerRun()
+			tcp_proxy_router.TcpManagerHandler.TcpServerRun()
 		}()
 		go func() {
-			grpc_proxy_router.GrpcServerRun()
+			grpc_proxy_router.GrpcManagerHandler.GrpcServerRun()
 		}()
 
 		quit := make(chan os.Signal)
 		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 		<-quit
 
-		tcp_proxy_router.TcpServerStop()
-		grpc_proxy_router.GrpcServerStop()
+		tcp_proxy_router.TcpManagerHandler.TcpServerStop()
+		grpc_proxy_router.GrpcManagerHandler.GrpcServerStop()
 		http_proxy_router.HttpServerStop()
 		http_proxy_router.HttpsServerStop()
 	}

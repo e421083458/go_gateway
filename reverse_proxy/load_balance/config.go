@@ -6,6 +6,7 @@ type LoadBalanceConf interface {
 	GetConf() []string
 	WatchConf()
 	UpdateConf(conf []string)
+	CloseWatch()
 }
 
 type Observer interface {

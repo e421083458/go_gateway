@@ -2,8 +2,8 @@ package tcp_server
 
 import (
 	"context"
-	"fmt"
 	"errors"
+	"fmt"
 	"net"
 	"sync"
 	"sync/atomic"
@@ -37,10 +37,12 @@ type TCPHandler interface {
 }
 
 type TcpServer struct {
-	Addr    string
-	Handler TCPHandler
-	err     error
-	BaseCtx context.Context
+	Addr        string
+	Handler     TCPHandler
+	err         error
+	BaseCtx     context.Context
+	UpdateAt    time.Time
+	ServiceName string
 
 	WriteTimeout     time.Duration
 	ReadTimeout      time.Duration

@@ -19,6 +19,9 @@ const (
 	FlowServicePrefix  = "flow_service_"
 	FlowAppPrefix = "flow_app_"
 
+	//distributed limter prefix
+	DistributedLimiterPrefix = "dist_limiter_"
+
 	JwtSignKey = "my_sign_key"
 	JwtExpires = 60*60
 )

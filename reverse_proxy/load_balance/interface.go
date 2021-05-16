@@ -6,4 +6,5 @@ type LoadBalance interface {
 
 	//后期服务发现补充
 	Update()
+	Close()
 }

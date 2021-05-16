@@ -88,3 +88,7 @@ func (r *WeightRoundRobinBalance) Update() {
 		}
 	}
 }
+
+func (r *WeightRoundRobinBalance) Close() {
+	r.conf.CloseWatch()
+}
