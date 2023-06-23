@@ -162,28 +162,109 @@ go run main.go -config=./conf/dev/ -endpoint server
 ```
 git clone git@github.com:e421083458/go_gateway_view.git
 ```
-
 - 确保本地环境安装了nodejs
 
 ```
 node -v
-v11.9.0
+v14.21.3
 ```
 
-- 安装node依赖包
+- 安装依赖包和前端项目
 
+#### 1、执行信息清除
 ```
-cd go_gateway_view
+rm -rf node_modules
+npm cache clean --force
+rm -rf package-lock.json
+```
+#### 2、设置npm加速
+```
+npm config set registry https://registry.npm.taobao.org
+```
+
+#### 3、git添加一个全局属性，防止无法下载等问题
+```
+git config --global url."https://".insteadOf git://
+```
+
+#### 4、确保本地环境安装了nodejs，这里版本一定要注意，最好是按照v14.21.3版本：
+https://gitcode.net/mirrors/sass/node-sass?utm_source=csdn_github_accelerator
+因为node-sass，要求不低于node10的版本。
+而且最新Mac M1操作系统要求node的最低版本不能低于v14，所以这里最好用v14版本左右。
+
+如果node版本不一致
+mac系统如果是通过brew安装的node，需要先执行卸载 
+```
+brew uninstall node
+```
+然后通过以下地址下载安装即可：
+https://nodejs.org/en/download/releases
+
+#### 5、安装过程可能会依赖本地python2的安装，安装步骤如下：
+https://devpress.csdn.net/python/62f99cf7c6770329307fefe4.html
+```
+brew install pyenv
+pyenv install 2.7.18
+```
+安装完毕后记得导入环境变量：
+```
+export PYTHON=/Users/yufuniu/.pyenv/versions/2.7.18/bin/python2.7
+export PATH=$PATH:/Users/yufuniu/.pyenv/versions/2.7.18/bin
+```
+
+#### 6、安装node依赖包
+```
 npm install
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install
 ```
-
-- 运行前端项目
-
+#### 7、运行前端项目
 ```
 npm run dev
+
 ```
+### 前端安装错误收集：
+#### 1、需要重新安装python2，并导入环境变量
+```
+npm ERR! 2 warnings generated.
+npm ERR! env: python: No such file or directory
+npm ERR! make: *** [Release/sass.a] Error 127
+npm ERR! gyp ERR! build error
+npm ERR! gyp ERR! stack Error: make failed with exit code: 2
+npm ERR! gyp ERR! stack at ChildProcess.onExit (/Users/yufuniu/FeProject/go_gateway_view/node_modules/node-gyp/lib/build.js:262:23)
+npm ERR! gyp ERR! stack at ChildProcess.emit (events.js:400:28)
+npm ERR! gyp ERR! stack at Process.ChildProcess._handle.onexit (internal/child_process.js:285:12)
+npm ERR! gyp ERR! System Darwin 22.4.0
+npm ERR! gyp ERR! command "/usr/local/bin/node" "/Users/yufuniu/FeProject/go_gateway_view/node_modules/node-gyp/bin/node-gyp.js" "rebuild" "--verbose" "--libsass_ext=" "--libsass_cflags=" "--libsass_ldflags=" "--libsass_library="
+npm ERR! gyp ERR! cwd /Users/yufuniu/FeProject/go_gateway_view/node_modules/node-sass
+npm ERR! gyp ERR! node -v v14.21.3
+npm ERR! gyp ERR! node-gyp -v v3.8.0
+npm ERR! gyp ERR! not ok
+npm ERR! Build failed with error code: 1
+```
+#### 2、npm来安装依赖项冲突问题如下
+```
+yufuniu@yufunius-MBP go_gateway_view % npm install
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: vue-element-admin@4.2.1
+npm ERR! Found: webpack@5.88.0
+npm ERR! node_modules/webpack
+npm ERR! dev webpack@"^5.88.0" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer webpack@"^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0" from html-webpack-plugin@3.2.0
+npm ERR! node_modules/html-webpack-plugin
+npm ERR! dev html-webpack-plugin@"3.2.0" from the root project
+```
+
+可以尝试执行如下来解决：
+```
+npm install webpack@4 --save-dev
+npm install --force
+```
+#### 3、不清楚执行原理情况下，不要使用yarn进行安装，不然可能引入其他问题。
+
+#### 4、如有其他问题可反复执行1-7步骤，寻找问题原因，或者咨询chat-gpt寻找其他原因。
 
 ### 后端goland编辑器参考
 
